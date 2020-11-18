@@ -1,0 +1,81 @@
+<mat-card class="action-item">
+
+
+  <!-- if there is more then one person hide name and only show initials -->
+  <div class="action-assignedTo-container">
+    <app-person class="action-assignedTo"
+                *ngFor="let person of action.assignedTo"
+                [person]="person"
+                [hideName]="action.assignedTo.length>1">
+    </app-person>
+  </div>
+
+
+  <mat-card-content>
+
+    <!------- [ Start ] action description display ------------>
+
+    <div *ngIf="!editMode"
+         (dblclick)="initForm()">
+      {{action.description}}
+    </div>
+
+    <!------- [ End ] action description display ------------>
+
+
+    <!------- [ Start ] action description form ------------>
+
+    <form *ngIf="editMode" #descriptionForm="ngForm" novalidate (ngSubmit)="onSubmit(descriptionForm)">
+
+
+      <mat-form-field class="action-edited-description" appearance="outline">
+
+      <textarea matInput cdkTextareaAutosize="true" cdkAutosizeMaxRows="6"
+                required [(ngModel)]="editedDescription" name="description" #description="ngModel"></textarea>
+
+        <mat-error *ngIf="description.invalid" i18n="Error message to inform user that the field is required">
+          Description field is required
+        </mat-error>
+
+      </mat-form-field>
+
+      <button mat-flat-button type="reset" (click)="editMode=false;descriptionForm.reset();"
+              i18n="Save action description edited">
+        Cancel
+      </button>
+
+      <button mat-flat-button type="submit" color="primary" i18n="Save action description after edited">
+        Save
+      </button>
+
+    </form>
+
+    <!------- [ End ] action description form ------------>
+
+  </mat-card-content>
+
+  <mat-card-actions>
+
+    <mat-form-field>
+      <mat-select  [(value)]="selected" class="action-style-menu">
+
+        <mat-option value="jira">
+          <img src="assets/jira.svg" alt="jira" style="width: 64px">
+        </mat-option>
+
+        <mat-option value="slack">
+          <img src="assets/slack.svg" alt="slack" style="width: 64px">
+        </mat-option>
+
+        <mat-option value="trello">
+          <img src="assets/trello.svg" alt="trello" style="width: 64px">
+        </mat-option>
+
+        <mat-option value="none">
+          None
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card-actions>
+
+</mat-card>

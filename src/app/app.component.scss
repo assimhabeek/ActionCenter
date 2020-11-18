@@ -1,0 +1,63 @@
+@import '~@angular/material/theming';
+
+.container {
+  width: 100%;
+  text-align: center;
+
+
+  .row{
+
+    text-align: left;
+    display: inline-block;
+
+    .action-list {
+
+      @include mat-elevation(2);
+
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: top;
+      width: 320px;
+      margin: 16px;
+      background-color: #ebecf0;
+
+
+      .action-list-title {
+        padding: 16px;
+        text-align: center;
+        position: relative;
+
+        &:after {
+          position: absolute;
+          content: '';
+          height: 2px;
+          width: 100%;
+          border-bottom: 1px solid;
+          opacity: 0.2;
+          bottom: 0;
+          left: 0;
+        }
+
+      }
+
+
+
+      .action-list-body {
+
+        padding: 8px;
+
+        .action-item-wrapper {
+
+          margin: 4px 0;
+
+        }
+
+      }
+
+
+    }
+
+  }
+
+
+}

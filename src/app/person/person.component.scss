@@ -1,0 +1,24 @@
+.person {
+  cursor: pointer;
+
+  .person-image {
+    height: 36px;
+    width: 36px;
+    line-height: 36px;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+  }
+
+  .person-name {
+    margin-left: 8px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, .54);
+  }
+
+
+  .person-image,
+  .person-name {
+    display: inline-block;
+  }
+}

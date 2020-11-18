@@ -1,0 +1,27 @@
+.action-item {
+  text-align: left;
+
+  .action-assignedTo-container .action-assignedTo {
+    display: inline-block;
+    margin: 4px;
+  }
+
+  .action-edited-description {
+    width: 100%;
+    margin-bottom: 8px;
+    line-height: 16px;
+  }
+
+  .action-style-menu {
+
+    mat-select {
+      width: 100px;
+
+      img {
+        width: 80%;
+        height: auto;
+      }
+
+    }
+  }
+}
