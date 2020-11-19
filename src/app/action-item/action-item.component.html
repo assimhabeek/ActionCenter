@@ -1,32 +1,93 @@
 <mat-card class="action-item">
 
+  <div class="action-item-card-header">
 
-  <!-- if there is more then one person hide name and only show initials -->
-  <div class="action-assignedTo-container">
-    <app-person class="action-assignedTo"
-                *ngFor="let person of action.assignedTo"
-                [person]="person"
-                [hideName]="action.assignedTo.length>1">
-    </app-person>
+
+    <!------- [ Start ] action assignedTo  ------------>
+
+    <div class="action-assignedTo-container">
+      <app-person class="action-assignedTo"
+                  *ngFor="let personId of action.assignedTo"
+                  [person]="getPersonById(personId)"
+                  [matMenuTriggerFor]="personsMenu"
+                  [matMenuTriggerData]="{id: personId}"
+                  [hideName]="action.assignedTo.length>1">
+        <!-- if there is more then one person hide name and only show initials -->
+
+      </app-person>
+    </div>
+
+    <mat-menu #personsMenu="matMenu">
+      <ng-template matMenuContent let-id="id">
+        <button mat-menu-item
+                *ngFor="let person of excludeExistingPersons(id)"
+                (click)="replacePersonId(id,person.id)">
+          <app-person [person]="person" [hideName]="false"></app-person>
+        </button>
+        <mat-divider></mat-divider>
+
+        <ng-container *ngIf="action.assignedTo.length>1">
+          <button mat-menu-item (click)="removePersonId(id)">
+            <mat-icon>delete</mat-icon>
+            <ng-container i18n="Cancel task Assignment from a person">
+              Cancel assignment
+            </ng-container>
+          </button>
+          <mat-divider></mat-divider>
+
+        </ng-container>
+
+        <button mat-menu-item [matMenuTriggerFor]="addPersonsMenu" [matMenuTriggerData]="{id: id}">
+          <mat-icon>add</mat-icon>
+          <ng-container i18n="Assign task to another persons(s)">
+            Add New
+          </ng-container>
+        </button>
+
+      </ng-template>
+    </mat-menu>
+
+    <mat-menu #addPersonsMenu="matMenu">
+      <ng-template matMenuContent let-id="id">
+        <button mat-menu-item
+                *ngFor="let person of excludeExistingPersons(id)"
+                (click)="addPersonId(person.id)">
+
+          <app-person [person]="person" [hideName]="false"></app-person>
+
+        </button>
+      </ng-template>
+    </mat-menu>
+    <!------- [ End ] action assignedTo  ------------>
+
+
+    <!------- [ Start ] action date  ------------>
+
+
+    <div class="action-date-picker">
+      <input #actionDateInput [matDatepicker]="picker" [value]="parseDate()" (dateChange)="changeDate($event)">
+      <mat-datepicker #picker></mat-datepicker>
+      <button mat-button (click)="picker.open()">
+        <mat-icon>event</mat-icon>
+        {{actionDateInput.value}}
+      </button>
+    </div>
+
+
+    <!------- [ Start ] action date  ------------>
+
   </div>
-
 
   <mat-card-content>
 
-    <!------- [ Start ] action description display ------------>
+    <!------- [ Start ] action description  ------------>
 
     <div *ngIf="!editMode"
          (dblclick)="initForm()">
-      {{action.description}}
+      {{action.content}}
     </div>
 
-    <!------- [ End ] action description display ------------>
-
-
-    <!------- [ Start ] action description form ------------>
-
     <form *ngIf="editMode" #descriptionForm="ngForm" novalidate (ngSubmit)="onSubmit(descriptionForm)">
-
 
       <mat-form-field class="action-edited-description" appearance="outline">
 
@@ -47,35 +108,50 @@
       <button mat-flat-button type="submit" color="primary" i18n="Save action description after edited">
         Save
       </button>
-
     </form>
 
-    <!------- [ End ] action description form ------------>
+    <!------- [ End ] action description  ------------>
+
 
   </mat-card-content>
 
   <mat-card-actions>
 
-    <mat-form-field>
-      <mat-select  [(value)]="selected" class="action-style-menu">
+    <!------- [ Start ] action style menu  ------------>
 
-        <mat-option value="jira">
-          <img src="assets/jira.svg" alt="jira" style="width: 64px">
-        </mat-option>
+    <button mat-button [matMenuTriggerFor]="styleMenu">
 
-        <mat-option value="slack">
-          <img src="assets/slack.svg" alt="slack" style="width: 64px">
-        </mat-option>
+      <img *ngIf="action.style!=='default'" [src]="'assets/'+action.style+'.svg'" alt="jira" style="width: 64px">
 
-        <mat-option value="trello">
-          <img src="assets/trello.svg" alt="trello" style="width: 64px">
-        </mat-option>
+      <ng-container *ngIf="action.style==='default'" i18n="Default action item style">
+        Default
+      </ng-container>
 
-        <mat-option value="none">
-          None
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    </button>
+
+    <mat-menu class="action-style-menu" #styleMenu="matMenu">
+
+      <button mat-menu-item (click)="changeStyle('jira')">
+        <img src="assets/jira.svg" alt="jira" style="width: 64px">
+      </button>
+
+      <button mat-menu-item value="slack" (click)="changeStyle('slack')">
+        <img src="assets/slack.svg" alt="slack" style="width: 64px">
+      </button>
+
+      <button mat-menu-item value="trello" (click)="changeStyle('trello')">
+        <img src="assets/trello.svg" alt="trello" style="width: 64px">
+      </button>
+
+      <button mat-menu-item value="none" (click)="changeStyle('default')"
+              i18n="Default action item style">
+        Default
+      </button>
+    </mat-menu>
+
+    <!------- [ End ] action style menu  ------------>
+
   </mat-card-actions>
+
 
 </mat-card>

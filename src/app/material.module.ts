@@ -9,6 +9,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MAT_DATE_FORMATS} from '@angular/material/core';
+import {ACTION_CENTER_DATE_FORMATS} from './utils/date-formats';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -20,7 +25,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatDividerModule
   ],
   exports: [
     MatToolbarModule,
@@ -31,7 +39,16 @@ import {MatSelectModule} from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatDividerModule
+  ],
+  providers: [
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: ACTION_CENTER_DATE_FORMATS
+    },
   ]
 })
 export class MaterialModule {

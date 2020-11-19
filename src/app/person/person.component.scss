@@ -1,6 +1,6 @@
 .person {
   cursor: pointer;
-
+  position: relative;
   .person-image {
     height: 36px;
     width: 36px;
@@ -11,6 +11,10 @@
   }
 
   .person-name {
+    height: 100%;
+    vertical-align: baseline;
+    overflow-wrap: break-word;
+    max-width: 120px;
     margin-left: 8px;
     font-weight: 400;
     color: rgba(0, 0, 0, .54);
@@ -20,5 +24,15 @@
   .person-image,
   .person-name {
     display: inline-block;
+  }
+
+  .person-remove-button{
+    position: absolute;
+    height: 24px;
+    left: -8px;
+    top: -8px;
+    width: 24px;
+    line-height: 24px;
+    z-index: 10;
   }
 }

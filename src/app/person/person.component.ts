@@ -24,5 +24,7 @@ export class PersonComponent implements OnInit {
       .map(nameSplit => nameSplit[0])
       .join('')
       .toUpperCase();
-  };
+  }
+
+
 }

@@ -1,8 +1,9 @@
-import {Person} from './person';
+export declare type ActionItemStyle = 'jira' | 'slack' | 'trello' | 'default';
 
 export interface Action {
   id: number;
-  title: string;
-  description: string;
-  assignedTo: Person[];
+  content: string;
+  style: ActionItemStyle;
+  date: string;
+  assignedTo: number[];
 }

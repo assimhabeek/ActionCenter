@@ -1,9 +1,34 @@
 .action-item {
+  width: 320px;
   text-align: left;
 
-  .action-assignedTo-container .action-assignedTo {
+  .action-item-card-header{
+    overflow: hidden;
+  }
+
+  .action-assignedTo-container {
+    width: 180px;
+    height: 64px;
+    overflow: hidden;
     display: inline-block;
-    margin: 4px;
+
+    .action-assignedTo {
+      display: inline-block;
+      margin: 4px;
+    }
+  }
+
+
+  .action-date-picker {
+    width: 140px;
+    vertical-align: top;
+    display: inline-block;
+
+    input {
+      visibility: hidden;
+      width: 0;
+      height: 0;
+    }
   }
 
   .action-edited-description {

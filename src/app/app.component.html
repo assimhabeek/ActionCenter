@@ -23,7 +23,10 @@
 
         <div class="action-item-wrapper" *ngFor="let action of list.actions">
 
-          <app-action-item [action]="action"></app-action-item>
+          <app-action-item [action]="action" [personsList]="personsList"
+                           (actionChange)="updateAction($event,list.id)">
+
+          </app-action-item>
 
         </div>
 
