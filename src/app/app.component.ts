@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
           {
             id: 1,
             date: '1-7-2020',
-            style: 'jira',
+            type: 'jira',
             content: `Overcome key issues to meet key milestones drink ` +
               'from the firehose, yet beef up (let\'s not try to) ' +
               'boil the ocean (here/there/everywhere).',

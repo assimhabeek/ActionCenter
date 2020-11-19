@@ -117,39 +117,39 @@
 
   <mat-card-actions>
 
-    <!------- [ Start ] action style menu  ------------>
+    <!------- [ Start ] action type menu  ------------>
 
-    <button mat-button [matMenuTriggerFor]="styleMenu">
+    <button mat-button [matMenuTriggerFor]="actionTypeMenu">
 
-      <img *ngIf="action.style!=='default'" [src]="'assets/'+action.style+'.svg'" alt="jira" style="width: 64px">
+      <img *ngIf="action.type!=='default'" [src]="'assets/'+action.type+'.svg'" alt="jira" style="width: 64px">
 
-      <ng-container *ngIf="action.style==='default'" i18n="Default action item style">
+      <ng-container *ngIf="action.type==='default'" i18n="Default action item type">
         Default
       </ng-container>
 
     </button>
 
-    <mat-menu class="action-style-menu" #styleMenu="matMenu">
+    <mat-menu class="action-type-menu" #actionTypeMenu="matMenu">
 
-      <button mat-menu-item (click)="changeStyle('jira')">
+      <button mat-menu-item (click)="changeActionType('jira')">
         <img src="assets/jira.svg" alt="jira" style="width: 64px">
       </button>
 
-      <button mat-menu-item value="slack" (click)="changeStyle('slack')">
+      <button mat-menu-item value="slack" (click)="changeActionType('slack')">
         <img src="assets/slack.svg" alt="slack" style="width: 64px">
       </button>
 
-      <button mat-menu-item value="trello" (click)="changeStyle('trello')">
+      <button mat-menu-item value="trello" (click)="changeActionType('trello')">
         <img src="assets/trello.svg" alt="trello" style="width: 64px">
       </button>
 
-      <button mat-menu-item value="none" (click)="changeStyle('default')"
+      <button mat-menu-item value="none" (click)="changeActionType('default')"
               i18n="Default action item style">
         Default
       </button>
     </mat-menu>
 
-    <!------- [ End ] action style menu  ------------>
+    <!------- [ End ] action type menu  ------------>
 
   </mat-card-actions>
 

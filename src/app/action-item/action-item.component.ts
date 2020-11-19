@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Action, ActionItemStyle} from '../model/action';
+import {Action, ActionItemType} from '../model/action';
 import * as _moment from 'moment';
 import {Moment} from 'moment';
 import {ACTION_CENTER_DATE_PARSE_FORMATS} from '../utils/date-formats';
@@ -46,8 +46,8 @@ export class ActionItemComponent {
     this.editMode = false;
   }
 
-  changeStyle(style: ActionItemStyle): void {
-    this.action.style = style;
+  changeActionType(actionType: ActionItemType): void {
+    this.action.type = actionType;
     this.notifyDataChange();
   }
 
