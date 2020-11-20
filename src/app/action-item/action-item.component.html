@@ -121,7 +121,7 @@
 
     <button mat-button [matMenuTriggerFor]="actionTypeMenu">
 
-      <img *ngIf="action.type!=='default'" [src]="'assets/'+action.type+'.svg'" alt="jira" style="width: 64px">
+      <img *ngIf="action.type!=='default'" [src]="'assets/'+action.type+'.svg'" style="width: 64px">
 
       <ng-container *ngIf="action.type==='default'" i18n="Default action item type">
         Default
@@ -150,6 +150,40 @@
     </mat-menu>
 
     <!------- [ End ] action type menu  ------------>
+
+
+    <!------- [ Start ] jira action type menu  ------------>
+
+    <ng-container *ngIf="action.type==='jira'">
+
+      <button class="jiar-action-type-button" mat-button [matMenuTriggerFor]="jiraActionTypeMenu">
+
+        <img *ngIf="action.type!=='default'" [src]="'assets/'+action.jiraActionItemType+'.svg'"
+             style="width: 24px">
+      </button>
+
+      <mat-menu #jiraActionTypeMenu="matMenu">
+
+        <button mat-menu-item (click)="changeJiraActionType('task')">
+          <img src="assets/task.svg" alt="task" style="width: 36px;vertical-align: middle">
+          <ng-container i18n="Jira action type">Task</ng-container>
+        </button>
+
+        <button mat-menu-item value="story" (click)="changeJiraActionType('story')">
+          <img src="assets/story.svg" alt="story" style="width: 36px;vertical-align: middle">
+          <ng-container i18n="Jira action type">Story</ng-container>
+        </button>
+
+        <button mat-menu-item value="bug" (click)="changeJiraActionType('bug')">
+          <img src="assets/bug.svg" alt="bug" style="width: 36px;vertical-align: middle">
+          <ng-container i18n="Jira action type">Bug</ng-container>
+        </button>
+
+      </mat-menu>
+
+    </ng-container>
+
+    <!------- [ End ] jira action type menu  ------------>
 
   </mat-card-actions>
 

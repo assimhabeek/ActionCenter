@@ -1,12 +1,20 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {TestBed} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {ActionItemComponent} from "./action-item/action-item.component";
+import {PersonComponent} from "./person/person.component";
+import {MaterialModule} from "./material.module";
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        ActionItemComponent,
+        PersonComponent
       ],
+      imports: [
+        MaterialModule
+      ]
     }).compileComponents();
   });
 
@@ -17,10 +25,12 @@ describe('AppComponent', () => {
   });
 
 
-  it('should render title', () => {
+  it('should render toolbar title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.title').textContent).toContain('ActionCenter app is running!');
+    expect(compiled.querySelector('mat-toolbar').textContent).toContain('ActionCenter');
   });
+
+
 });

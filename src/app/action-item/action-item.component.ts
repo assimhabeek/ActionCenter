@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Action, ActionItemType} from '../model/action';
+import {Action, ActionItemType, JiraActionItemType} from '../model/action';
 import * as _moment from 'moment';
 import {Moment} from 'moment';
 import {ACTION_CENTER_DATE_PARSE_FORMATS} from '../utils/date-formats';
@@ -50,6 +50,12 @@ export class ActionItemComponent {
     this.action.type = actionType;
     this.notifyDataChange();
   }
+
+  changeJiraActionType(jiraActionType: JiraActionItemType): void {
+    this.action.jiraActionItemType = jiraActionType;
+    this.notifyDataChange();
+  }
+
 
   parseDate(): Moment {
     return moment([this.action.date], ACTION_CENTER_DATE_PARSE_FORMATS);

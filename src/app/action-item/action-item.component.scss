@@ -2,7 +2,7 @@
   width: 320px;
   text-align: left;
 
-  .action-item-card-header{
+  .action-item-card-header {
     overflow: hidden;
   }
 
@@ -37,16 +37,8 @@
     line-height: 16px;
   }
 
-  .action-type-menu {
-
-    mat-select {
-      width: 100px;
-
-      img {
-        width: 80%;
-        height: auto;
-      }
-
-    }
+  .jiar-action-type-button {
+    float: right;
   }
+
 }
