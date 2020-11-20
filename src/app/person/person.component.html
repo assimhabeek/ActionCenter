@@ -1,4 +1,4 @@
-<div class="person">
+<div *ngIf="person" class="person">
 
   <div class="person-image" [style]="'background-color:'+person.avatarColor">{{ getPersonNameInitials() }}</div>
 

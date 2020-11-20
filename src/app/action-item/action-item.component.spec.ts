@@ -1,7 +1,11 @@
-/*
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ActionItemComponent } from './action-item.component';
+import {ActionItemComponent} from './action-item.component';
+import {MaterialModule} from "../material.module";
+import {AppComponent} from "../app.component";
+import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserTestingModule} from "@angular/platform-browser/testing";
 
 describe('ActionComponent', () => {
   let component: ActionItemComponent;
@@ -9,9 +13,12 @@ describe('ActionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActionItemComponent ]
+      declarations: [ActionItemComponent],
+      imports: [
+        BrowserAnimationsModule
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -23,5 +30,13 @@ describe('ActionComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should not render when action is undefined', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.action-item')).toBeNull();
+  });
+
+
 });
-*/
