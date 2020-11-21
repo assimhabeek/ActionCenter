@@ -215,7 +215,6 @@ describe('ActionComponent', () => {
 
     for (const personComp of personsComponents) {
       personComp.nativeNode.dispatchEvent(new Event('click'));
-      const personId = personComp.componentInstance.person.id;
 
       const menu = await rootLoader.getHarness(MatMenuHarness.with({selector: '.action-assignedTo'}));
 
@@ -268,6 +267,22 @@ describe('ActionComponent', () => {
 
     expect(excludedOne).toEqual([
       {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      },
+      {
+        id: 3,
+        name: 'Samuel Johnson',
+        avatarColor: 'green'
+      }
+    ]);
+
+
+    const excludedTwo = component.excludeExistingPersons(2);
+
+    expect(excludedTwo).toEqual([
+      {
         id: 2,
         name: 'Deann Stevens',
         avatarColor: 'blue'
@@ -276,6 +291,21 @@ describe('ActionComponent', () => {
         id: 3,
         name: 'Samuel Johnson',
         avatarColor: 'green'
+      }
+    ]);
+
+    const excludedThree = component.excludeExistingPersons(3);
+
+    expect(excludedThree).toEqual([
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      },
+      {
+        id: 2,
+        name: 'Deann Stevens',
+        avatarColor: 'blue'
       }
     ]);
 
