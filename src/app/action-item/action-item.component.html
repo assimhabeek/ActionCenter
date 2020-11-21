@@ -1,4 +1,4 @@
-<mat-card *ngIf="action" class="action-item">
+<mat-card *ngIf="action && personsList" class="action-item">
 
   <div class="action-item-card-header">
 
@@ -11,13 +11,13 @@
                   [person]="getPersonById(personId)"
                   [matMenuTriggerFor]="personsMenu"
                   [matMenuTriggerData]="{id: personId}"
-                  [hideName]="action.assignedTo.length>1">
+                  [hideName]="shouldHidePersonNames()">
         <!-- if there is more then one person hide name and only show initials -->
 
       </app-person>
     </div>
 
-    <mat-menu #personsMenu="matMenu">
+    <mat-menu id="personsMenu" #personsMenu="matMenu">
       <ng-template matMenuContent let-id="id">
         <button mat-menu-item
                 *ngFor="let person of excludeExistingPersons(id)"

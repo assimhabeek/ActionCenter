@@ -28,6 +28,10 @@ export class ActionItemComponent {
     return this.personsList.find(x => x.id === id);
   }
 
+  shouldHidePersonNames(): boolean {
+    return this.action.assignedTo.length > 1;
+  }
+
   initForm(): void {
     this.editedDescription = this.action.content;
     this.editMode = true;

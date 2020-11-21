@@ -1,13 +1,16 @@
-import {TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {ActionItemComponent} from "./action-item/action-item.component";
-import {PersonComponent} from "./person/person.component";
-import {MaterialModule} from "./material.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {CommonModule} from "@angular/common";
-import {BrowserTestingModule} from "@angular/platform-browser/testing";
+import {ActionItemComponent} from './action-item/action-item.component';
+import {PersonComponent} from './person/person.component';
+import {MaterialModule} from './material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserTestingModule} from '@angular/platform-browser/testing';
+import {FormsModule} from '@angular/forms';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
@@ -18,34 +21,36 @@ describe('AppComponent', () => {
       imports: [
         BrowserTestingModule,
         BrowserAnimationsModule,
-        MaterialModule
+        MaterialModule,
+        FormsModule
       ]
     }).compileComponents();
   });
 
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it('should render toolbar', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('mat-toolbar')).toBeTruthy();
   });
 
 
   it('should render toolbar title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('mat-toolbar').textContent).toContain('Action Center');
   });
 
-  it('should render actionList', function () {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should render actionList', () => {
     fixture.componentInstance.actionLists = [
       {
         id: 1,
