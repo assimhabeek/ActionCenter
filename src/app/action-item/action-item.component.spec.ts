@@ -263,13 +263,13 @@ describe('ActionComponent', () => {
 
     fixture.detectChanges();
 
-    const excludedOne = component.excludeExistingPersons(1);
+    const excludedOne = component.excludeExistingPersons();
 
     expect(excludedOne).toEqual([
       {
-        id: 1,
-        name: 'Bernice Fletcher',
-        avatarColor: 'orange'
+        id: 2,
+        name: 'Deann Stevens',
+        avatarColor: 'blue'
       },
       {
         id: 3,
@@ -278,36 +278,23 @@ describe('ActionComponent', () => {
       }
     ]);
 
+    component.action.assignedTo.push(2);
 
-    const excludedTwo = component.excludeExistingPersons(2);
+    const excludedTwo = component.excludeExistingPersons();
 
     expect(excludedTwo).toEqual([
       {
-        id: 2,
-        name: 'Deann Stevens',
-        avatarColor: 'blue'
-      },
-      {
         id: 3,
         name: 'Samuel Johnson',
         avatarColor: 'green'
       }
     ]);
 
-    const excludedThree = component.excludeExistingPersons(3);
 
-    expect(excludedThree).toEqual([
-      {
-        id: 1,
-        name: 'Bernice Fletcher',
-        avatarColor: 'orange'
-      },
-      {
-        id: 2,
-        name: 'Deann Stevens',
-        avatarColor: 'blue'
-      }
-    ]);
+    component.action.assignedTo.push(3);
+    const excludedThree = component.excludeExistingPersons();
+
+    expect(excludedThree).toEqual([]);
 
   });
 

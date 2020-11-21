@@ -20,7 +20,7 @@
     <mat-menu id="personsMenu" #personsMenu="matMenu">
       <ng-template matMenuContent let-id="id">
         <button mat-menu-item
-                *ngFor="let person of excludeExistingPersons(id)"
+                *ngFor="let person of excludeExistingPersons()"
                 (click)="replacePersonId(id,person.id)">
           <app-person [person]="person" [hideName]="false"></app-person>
         </button>
@@ -48,9 +48,9 @@
     </mat-menu>
 
     <mat-menu #addPersonsMenu="matMenu">
-      <ng-template matMenuContent let-id="id">
+      <ng-template>
         <button mat-menu-item
-                *ngFor="let person of excludeExistingPersons(id)"
+                *ngFor="let person of excludeExistingPersons()"
                 (click)="addPersonId(person.id)">
 
           <app-person [person]="person" [hideName]="false"></app-person>

@@ -71,7 +71,7 @@ export class ActionItemComponent {
     this.notifyDataChange();
   }
 
-  excludeExistingPersons(id: number): Person[] {
+  excludeExistingPersons(): Person[] {
     return this.personsList.filter(x => this.action.assignedTo.indexOf(x.id) < 0);
   }
 
