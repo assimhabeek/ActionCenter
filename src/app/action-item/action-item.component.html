@@ -37,7 +37,7 @@
 
         </ng-container>
 
-        <button mat-menu-item [matMenuTriggerFor]="addPersonsMenu" [matMenuTriggerData]="{id: id}">
+        <button mat-menu-item [matMenuTriggerFor]="addPersonsMenu">
           <mat-icon>add</mat-icon>
           <ng-container i18n="Assign task to another persons(s)">
             Add New
@@ -48,15 +48,12 @@
     </mat-menu>
 
     <mat-menu #addPersonsMenu="matMenu">
-      <ng-template>
-        <button mat-menu-item
-                *ngFor="let person of excludeExistingPersons()"
-                (click)="addPersonId(person.id)">
+      <button mat-menu-item *ngFor="let person of excludeExistingPersons()"
+              (click)="addPersonId(person.id)">
 
-          <app-person [person]="person" [hideName]="false"></app-person>
+        <app-person [person]="person" [hideName]="false"></app-person>
 
-        </button>
-      </ng-template>
+      </button>
     </mat-menu>
     <!------- [ End ] action assignedTo  ------------>
 
@@ -82,12 +79,13 @@
 
     <!------- [ Start ] action description  ------------>
 
-    <div *ngIf="!editMode"
+    <div class="action-content" *ngIf="!editMode"
          (dblclick)="initForm()">
       {{action.content}}
     </div>
 
-    <form *ngIf="editMode" #descriptionForm="ngForm" novalidate (ngSubmit)="onSubmit(descriptionForm)">
+    <form class="action-content-form" *ngIf="editMode" #descriptionForm="ngForm" novalidate
+          (ngSubmit)="onSubmit(descriptionForm)">
 
       <mat-form-field class="action-edited-description" appearance="outline">
 
@@ -100,13 +98,12 @@
 
       </mat-form-field>
 
-      <button mat-flat-button type="reset" (click)="editMode=false;descriptionForm.reset();"
-              i18n="Save action description edited">
-        Cancel
+      <button mat-icon-button type="reset" (click)="editMode=false;descriptionForm.reset();">
+        <mat-icon>cancel</mat-icon>
       </button>
 
-      <button mat-flat-button type="submit" color="primary" i18n="Save action description after edited">
-        Save
+      <button mat-icon-button type="submit" color="primary" i18n="Save action description after edited">
+        <mat-icon>save</mat-icon>
       </button>
     </form>
 
@@ -119,7 +116,7 @@
 
     <!------- [ Start ] action type menu  ------------>
 
-    <button mat-button [matMenuTriggerFor]="actionTypeMenu">
+    <button class="action-type-menu-trigger" mat-button [matMenuTriggerFor]="actionTypeMenu">
 
       <img *ngIf="action.type!=='default'" [src]="'assets/'+action.type+'.svg'" style="width: 64px">
 

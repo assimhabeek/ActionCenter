@@ -12,6 +12,8 @@ import {MatMenuHarness} from '@angular/material/menu/testing';
 import {By} from '@angular/platform-browser';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {MatDatepickerInputHarness} from '@angular/material/datepicker/testing';
+import {MatInputHarness} from "@angular/material/input/testing";
+import {MatButtonHarness} from "@angular/material/button/testing";
 
 describe('ActionComponent', () => {
   let component: ActionItemComponent;
@@ -210,21 +212,19 @@ describe('ActionComponent', () => {
 
     fixture.detectChanges();
 
-    const personsComponents = fixture.debugElement
-      .query(By.css('.action-assignedTo-container'))
-      .queryAllNodes(By.directive(MatMenuTrigger));
+    const personComponent = fixture.debugElement
+      .query(By.directive(PersonComponent));
 
-    for (const personComp of personsComponents) {
-      personComp.nativeNode.dispatchEvent(new Event('click'));
 
-      const menu = await rootLoader.getHarness(MatMenuHarness.with({selector: '.action-assignedTo'}));
+    personComponent.nativeNode.dispatchEvent(new Event('click'));
 
-      const isOpen = await menu.isOpen();
+    let menu = await rootLoader.getHarness(MatMenuHarness.with({selector: '.action-assignedTo'}));
 
-      expect(isOpen).toBeTrue();
+    const isOpen = await menu.isOpen();
 
-      menu.close();
-    }
+    expect(isOpen).toBeTrue();
+
+    await menu.close();
 
     done();
   });
@@ -461,5 +461,332 @@ describe('ActionComponent', () => {
     done();
   });
 
+  it('should render form only after double click', () => {
 
-});
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      }
+    ];
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.action-content')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.action-content-form')).toBeNull();
+
+    fixture.nativeElement.querySelector('.action-content').dispatchEvent(new Event('dblclick'));
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.action-content')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.action-content-form')).toBeTruthy();
+
+  });
+
+
+  it('should render textarea and two button inside form', () => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      }
+    ];
+
+    fixture.detectChanges();
+
+    const actionContent = fixture.nativeElement.querySelector('.action-content');
+    actionContent.dispatchEvent(new Event('dblclick'));
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.action-content-form textarea')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.action-content-form button[type="submit"]')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.action-content-form button[type="reset"]')).toBeTruthy();
+
+  });
+
+  it('should render error when form is submited invalid', async (done) => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      }
+    ];
+
+    fixture.detectChanges();
+
+    const actionContent = fixture.nativeElement.querySelector('.action-content');
+    actionContent.dispatchEvent(new Event('dblclick'));
+
+    fixture.detectChanges();
+
+    const textarea = await loader.getHarness(MatInputHarness.with({selector: 'textarea'}))
+    const submitButton = await loader.getHarness(MatButtonHarness.with({selector: '[type="submit"]'}))
+
+    expect(fixture.nativeElement.querySelector('.action-content-form mat-error')).toBeFalsy();
+
+    await textarea.setValue('');
+    await submitButton.click();
+
+    expect(fixture.nativeElement.querySelector('.action-content-form mat-error')).toBeTruthy();
+
+    done();
+  });
+
+  it('should update action content when valid form is submitted', async (done) => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      }
+    ];
+
+    fixture.detectChanges();
+
+    const actionContent = fixture.nativeElement.querySelector('.action-content');
+    actionContent.dispatchEvent(new Event('dblclick'));
+
+    fixture.detectChanges();
+
+    const textarea = await loader.getHarness(MatInputHarness.with({selector: 'textarea'}))
+    const submitButton = await loader.getHarness(MatButtonHarness.with({selector: '[type="submit"]'}))
+
+    await textarea.setValue('aa');
+    await submitButton.click();
+
+    expect(fixture.componentInstance.action.content).toEqual('aa');
+
+    done();
+  });
+
+  it('should not update action content when cancel button is clicked', async (done) => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      }
+    ];
+
+    fixture.detectChanges();
+
+    const actionContent = fixture.nativeElement.querySelector('.action-content');
+    actionContent.dispatchEvent(new Event('dblclick'));
+
+    fixture.detectChanges();
+
+    const textarea = await loader.getHarness(MatInputHarness.with({selector: 'textarea'}))
+    const resetButton = await loader.getHarness(MatButtonHarness.with({selector: '[type="reset"]'}))
+
+    await textarea.setValue('aa');
+    await resetButton.click();
+
+
+    const originalText = `Overcome key issues to meet key milestones drink ` +
+      'from the firehose, yet beef up (let\'s not try to) ' +
+      'boil the ocean (here/there/everywhere).';
+    expect(fixture.componentInstance.action.content).toEqual(originalText);
+
+    done();
+  });
+
+
+  it('should open menu on action type menu click', async (done) => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1, 2]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      },
+      {
+        id: 2,
+        name: 'Deann Stevens',
+        avatarColor: 'blue'
+      },
+    ];
+
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('.action-type-menu-trigger');
+
+    trigger.dispatchEvent(new Event('click'));
+
+    let menu = await rootLoader.getHarness(MatMenuHarness.with({selector: '.action-type-menu-trigger'}));
+
+    const isOpen = await menu.isOpen();
+
+    expect(isOpen).toBeTrue();
+
+    await menu.close();
+
+    done();
+  });
+
+  it('should open menu on jira action type menu click', async (done) => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1, 2]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      },
+      {
+        id: 2,
+        name: 'Deann Stevens',
+        avatarColor: 'blue'
+      },
+    ];
+
+    fixture.detectChanges();
+
+    const trigger = fixture.nativeElement.querySelector('.jiar-action-type-button');
+
+    trigger.dispatchEvent(new Event('click'));
+
+    let menu = await rootLoader.getHarness(MatMenuHarness.with({selector: '.jiar-action-type-button'}));
+
+    const isOpen = await menu.isOpen();
+
+    expect(isOpen).toBeTrue();
+
+    await menu.close();
+
+    done();
+  });
+
+  it('should render jira action type menu only if action type is jira', () => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1, 2]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      },
+      {
+        id: 2,
+        name: 'Deann Stevens',
+        avatarColor: 'blue'
+      },
+    ];
+
+    fixture.detectChanges();
+
+
+    expect(fixture.nativeElement.querySelector('.jiar-action-type-button')).toBeTruthy();
+
+    component.action.type = "default";
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.jiar-action-type-button')).toBeFalsy();
+  });
+
+
+})
+;
