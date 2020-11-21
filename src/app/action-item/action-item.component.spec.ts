@@ -11,6 +11,7 @@ import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {MatMenuHarness} from '@angular/material/menu/testing';
 import {By} from '@angular/platform-browser';
 import {MatMenuTrigger} from '@angular/material/menu';
+import {MatDatepickerInputHarness} from '@angular/material/datepicker/testing';
 
 describe('ActionComponent', () => {
   let component: ActionItemComponent;
@@ -147,7 +148,7 @@ describe('ActionComponent', () => {
       }
     ];
 
-    expect(component.shouldHidePersonNames()).toBeFalse();
+    expect(component.taskAssignedToManyPersons()).toBeFalse();
   });
 
   it('should hide person name when action assigned to many Persons', () => {
@@ -177,7 +178,7 @@ describe('ActionComponent', () => {
       },
     ];
 
-    expect(component.shouldHidePersonNames()).toBeTrue();
+    expect(component.taskAssignedToManyPersons()).toBeTrue();
   });
 
   it('should open menu on person click', async (done) => {
@@ -227,7 +228,6 @@ describe('ActionComponent', () => {
 
     done();
   });
-
 
   it('should pass only unassigned people to menu', () => {
 
@@ -297,5 +297,169 @@ describe('ActionComponent', () => {
     expect(excludedThree).toEqual([]);
 
   });
+
+  it('should add new person to achieve the action', () => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      },
+      {
+        id: 2,
+        name: 'Deann Stevens',
+        avatarColor: 'blue'
+      },
+      {
+        id: 3,
+        name: 'Samuel Johnson',
+        avatarColor: 'green'
+      }
+    ];
+
+    fixture.detectChanges();
+
+    component.addPersonId(2);
+
+    expect(component.action.assignedTo).toContain(2);
+
+
+  });
+
+  it('should remove person from action assignment', () => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      },
+      {
+        id: 2,
+        name: 'Deann Stevens',
+        avatarColor: 'blue'
+      },
+      {
+        id: 3,
+        name: 'Samuel Johnson',
+        avatarColor: 'green'
+      }
+    ];
+
+    fixture.detectChanges();
+
+    component.removePersonId(1);
+
+    expect(component.action.assignedTo).not.toContain(1);
+
+  });
+
+  it('should replace person in action assignment', () => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      },
+      {
+        id: 2,
+        name: 'Deann Stevens',
+        avatarColor: 'blue'
+      },
+      {
+        id: 3,
+        name: 'Samuel Johnson',
+        avatarColor: 'green'
+      }
+    ];
+
+    fixture.detectChanges();
+
+    component.replacePersonId(1, 2);
+
+    expect(component.action.assignedTo).not.toContain(1);
+    expect(component.action.assignedTo).toContain(2);
+
+  });
+
+  it('should parse and output a correct date', async (done) => {
+
+    // in case action is initialised inside component
+    component.action = {
+      id: 1,
+      date: '1-7-2020',
+      type: 'jira',
+      jiraActionItemType: 'task',
+      content: `Overcome key issues to meet key milestones drink ` +
+        'from the firehose, yet beef up (let\'s not try to) ' +
+        'boil the ocean (here/there/everywhere).',
+      assignedTo: [1]
+    };
+
+    component.personsList = [
+      {
+        id: 1,
+        name: 'Bernice Fletcher',
+        avatarColor: 'orange'
+      }
+    ];
+
+    fixture.detectChanges();
+
+
+    const datePickerTrigger = await rootLoader.getHarness(MatDatepickerInputHarness);
+
+    // checking for parse
+    const oldValue = await datePickerTrigger.getValue();
+    expect(oldValue).toEqual('July 1st');
+
+
+    await datePickerTrigger.openCalendar();
+    const calender = await datePickerTrigger.getCalendar();
+    await calender.selectCell({text: '5'});
+    await datePickerTrigger.closeCalendar();
+
+    expect(component.action.date).toEqual('05-07-2020');
+    done();
+  });
+
 
 });

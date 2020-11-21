@@ -11,7 +11,7 @@
                   [person]="getPersonById(personId)"
                   [matMenuTriggerFor]="personsMenu"
                   [matMenuTriggerData]="{id: personId}"
-                  [hideName]="shouldHidePersonNames()">
+                  [hideName]="taskAssignedToManyPersons()">
         <!-- if there is more then one person hide name and only show initials -->
 
       </app-person>
@@ -26,7 +26,7 @@
         </button>
         <mat-divider></mat-divider>
 
-        <ng-container *ngIf="action.assignedTo.length>1">
+        <ng-container *ngIf="taskAssignedToManyPersons()">
           <button mat-menu-item (click)="removePersonId(id)">
             <mat-icon>delete</mat-icon>
             <ng-container i18n="Cancel task Assignment from a person">

@@ -28,7 +28,7 @@ export class ActionItemComponent {
     return this.personsList.find(x => x.id === id);
   }
 
-  shouldHidePersonNames(): boolean {
+  taskAssignedToManyPersons(): boolean {
     return this.action.assignedTo.length > 1;
   }
 
@@ -67,7 +67,7 @@ export class ActionItemComponent {
 
   changeDate($event): void {
     const momentDate: Moment = $event.value;
-    this.action.date = momentDate.format('DD-MM-YYYY');
+    this.action.date = momentDate.format(ACTION_CENTER_DATE_PARSE_FORMATS);
     this.notifyDataChange();
   }
 
