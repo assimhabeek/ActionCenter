@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="64d547d7af7d8b01954c10a7a770b364f0215077" datatype="html">
+        <source>Action Center</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">App toolbar header</note>
+      </trans-unit>
+      <trans-unit id="ccc34978e61180e0c20124f7fab5773689fa1af6" datatype="html">
+        <source> Default </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">148,149</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">127,128</context>
+        </context-group>
+        <note priority="1" from="description">Default action item style</note>
+      </trans-unit>
+      <trans-unit id="ced55243395e58e78491a6779c1e6f15f0ee23e8" datatype="html">
+        <source> Add New </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+        <note priority="1" from="description">Assign task to another persons(s)</note>
+      </trans-unit>
+      <trans-unit id="f2096dd17f12108f4359a20ea2c9f14211aa7c8b" datatype="html">
+        <source> Cancel assignment </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+        <note priority="1" from="description">Cancel task Assignment from a person</note>
+      </trans-unit>
+      <trans-unit id="a5433ae2324496bea9537caa5e8a2719d8e958d8" datatype="html">
+        <source> Cancel </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">105,106</context>
+        </context-group>
+        <note priority="1" from="description">Save action description edited</note>
+      </trans-unit>
+      <trans-unit id="f8b53b407af242e77dc3391947f23988f3451e64" datatype="html">
+        <source> Save </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">109,110</context>
+        </context-group>
+        <note priority="1" from="description">Save action description after edited</note>
+      </trans-unit>
+      <trans-unit id="4c7d74241f47a8e6f7699408d737c712028353f2" datatype="html">
+        <source> Description field is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+        <note priority="1" from="description">Error message to inform user that the field is required</note>
+      </trans-unit>
+      <trans-unit id="61435c6c3b3cca0c204ef9f5369027565d327acb" datatype="html">
+        <source>Task</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+        <note priority="1" from="description">Jira action type</note>
+      </trans-unit>
+      <trans-unit id="33dc872e0dbaf189fc4577f83e20fa4bcba2757a" datatype="html">
+        <source>Story</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+        <note priority="1" from="description">Jira action type</note>
+      </trans-unit>
+      <trans-unit id="19f66e20f49e6f46433e6933246d27ef5e13ef03" datatype="html">
+        <source>Bug</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/action-item/action-item.component.html</context>
+          <context context-type="linenumber">179</context>
+        </context-group>
+        <note priority="1" from="description">Jira action type</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
